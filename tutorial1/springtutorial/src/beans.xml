@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <!-- the application context definition for the springapp DispatcherServlet -->
+
+    <bean id="sayhello" class="me.longerian.spring.impl.HelloBean">
+        <property name="pi" value="#{T(java.lang.Math).PI}"/>
+        <property name="random" value="#{T(java.lang.Math).random()}"/>
+        <property name="target" value="#{systemEnvironment['JAVA_HOME']}" />
+    </bean>
+
+    <bean id="audience" class="com.springinaction.springidol.Audience" />
+
+    <bean id="volunteer" class="com.springinaction.springidol.Volunteer" />
+    <bean id="magician" class="com.springinaction.springidol.Magician" />
+
+    <aop:config>
+        <aop:aspect ref="audience">
+
+            <aop:pointcut id="performance2"
+                          expression="execution(* com.springinaction.springidol.Performer.perform(..))" />
+
+            <aop:around pointcut-ref="performance2"
+                    method="watchPerformance" />
+
+            <!--<aop:before method="takeSeats"-->
+                        <!--pointcut="execution(* com.springinaction.springidol.Performer.perform(..))" />-->
+            <!--<aop:before method="turnOffCellPhones"-->
+                        <!--pointcut="execution(* com.springinaction.springidol.Performer.perform(..))" />-->
+            <!--<aop:after-returning method="applaud"-->
+                        <!--pointcut="execution(* com.springinaction.springidol.Performer.perform(..))" />-->
+            <!--<aop:after-throwing method="demandRefund"-->
+                        <!--pointcut="execution(* com.springinaction.springidol.Performer.perform(..))" />-->
+
+        </aop:aspect>
+
+        <aop:aspect ref="magician">
+            <aop:pointcut id="thinking"
+                          expression="execution(* com.springinaction.springidol.Thinker.thinkOfSomething(String))
+                          and args(thoughts)" />
+
+            <aop:before method="interceptThoughts"
+                        pointcut-ref="thinking"
+                        arg-names="thoughts" />
+        </aop:aspect>
+    </aop:config>
+
+    <context:component-scan
+        base-package="com.springinaction.springidol">
+        <context:include-filter type="assignable" expression="com.springinaction.springidol.Instrument" />
+    </context:component-scan>
+
+    <!--<bean id="criticismEngine"-->
+            <!--class="com.springinaction.springidol.CriticismEngineImpl">-->
+        <!--<property name="criticismPool">-->
+            <!--<list>-->
+                <!--<value>I'm not being rude, but that was appalling.</value>-->
+                <!--<value>You may be the least talented person in this show.</value>-->
+                <!--<value>Do everyone a favor and keep your day job.</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean class="com.springinaction.springidol.JudgeAspect"-->
+            <!--factory-method="aspectOf">-->
+        <!--<property name="criticismEngine" ref="criticismEngine" />-->
+    <!--</bean>-->
+
+</beans>

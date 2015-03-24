@@ -1,0 +1,95 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one or more
+ *  contributor license agreements.  See the NOTICE file distributed with
+ *  this work for additional information regarding copyright ownership.
+ *  The ASF licenses this file to You under the Apache License, Version 2.0
+ *  (the "License"); you may not use this file except in compliance with
+ *  the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+package org.apache.tomcat.util.net;
+
+import java.io.IOException;
+import java.security.cert.X509Certificate;
+
+/**
+ * Defines an interface to interact with SSL sessions.
+ */
+public interface SSLSupport {
+    /**
+     * The Request attribute key for the cipher suite.
+     */
+    public static final String CIPHER_SUITE_KEY =
+            "javax.servlet.request.cipher_suite";
+
+    /**
+     * The Request attribute key for the key size.
+     */
+    public static final String KEY_SIZE_KEY = "javax.servlet.request.key_size";
+
+    /**
+     * The Request attribute key for the client certificate chain.
+     */
+    public static final String CERTIFICATE_KEY =
+            "javax.servlet.request.X509Certificate";
+
+    /**
+     * The Request attribute key for the session id.
+     * This one is a Tomcat extension to the Servlet spec.
+     */
+    public static final String SESSION_ID_KEY =
+            "javax.servlet.request.ssl_session_id";
+
+    /**
+     * The request attribute key for the session manager.
+     * This one is a Tomcat extension to the Servlet spec.
+     */
+    public static final String SESSION_MGR =
+            "javax.servlet.request.ssl_session_mgr";
+
+
+    /**
+     * The cipher suite being used on this connection.
+     */
+    public String getCipherSuite() throws IOException;
+
+    /**
+     * The client certificate chain (if any).
+     *
+     * @param force If <code>true</code>, then re-negotiate the connection and
+     *              request a client certificate if a client certificate has not
+     *              already been requested.
+     */
+    public X509Certificate[] getPeerCertificateChain(boolean force) throws IOException;
+
+    /**
+     * Get the keysize.
+     *
+     * What we're supposed to put here is ill-defined by the
+     * Servlet spec (S 4.7 again). There are at least 4 potential
+     * values that might go here:
+     *
+     * (a) The size of the encryption key
+     * (b) The size of the MAC key
+     * (c) The size of the key-exchange key
+     * (d) The size of the signature key used by the server
+     *
+     * Unfortunately, all of these values are nonsensical.
+     **/
+    public Integer getKeySize()
+        throws IOException;
+
+    /**
+     * The current session Id.
+     */
+    public String getSessionId() throws IOException;
+}
+

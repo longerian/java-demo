@@ -1,0 +1,22 @@
+apply plugin: 'application'
+
+dependencies {
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile project(':core')
+}
+
+mainClassName = 'me.longerian.gradle.HelloWorld'
+
+task copyLicense {
+    outputs.file new File("$buildDir/LICENSE")
+    doLast {
+        copy {
+            from "LICENSE"
+            into "$buildDir"
+        }
+    }
+}
+
+applicationDistribution.from(copyLicense) {
+    into ""
+}

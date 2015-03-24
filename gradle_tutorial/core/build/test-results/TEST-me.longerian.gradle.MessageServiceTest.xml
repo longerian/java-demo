@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="me.longerian.gradle.MessageServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2015-03-13T12:09:34" hostname="ali-074182n" time="0.002">
+  <properties/>
+  <testcase name="getMessage_ShouldReturnMessage" classname="me.longerian.gradle.MessageServiceTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

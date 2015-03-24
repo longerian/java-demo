@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/account-aggregator.iml" filepath="$PROJECT_DIR$/account-aggregator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../account-captcha/account-captcha.iml" filepath="$PROJECT_DIR$/../account-captcha/account-captcha.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../account-email/account-email.iml" filepath="$PROJECT_DIR$/../account-email/account-email.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../account-parent/account-parent.iml" filepath="$PROJECT_DIR$/../account-parent/account-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../account-persist/account-persist.iml" filepath="$PROJECT_DIR$/../account-persist/account-persist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../account-service/account-service.iml" filepath="$PROJECT_DIR$/../account-service/account-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../account-web/account-web.iml" filepath="$PROJECT_DIR$/../account-web/account-web.iml" />
+    </modules>
+  </component>
+</project>
+

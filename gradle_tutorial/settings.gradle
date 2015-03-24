@@ -1,0 +1,5 @@
+rootProject.name = 'gradle_tutorial'
+
+include 'core'
+include 'app'
+

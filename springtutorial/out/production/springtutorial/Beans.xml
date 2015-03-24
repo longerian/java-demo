@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <context:annotation-config/>
+    <aop:aspectj-autoproxy/>
+
+    <aop:config>
+        <aop:aspect id="log" ref="logging">
+            <aop:pointcut id="selectAll" expression="execution(* com.tutorialspoint.Student.*(..))" />
+            <aop:before method="beforeAdvice" pointcut-ref="selectAll" />
+            <aop:after method="afterAdvice" pointcut-ref="selectAll" />
+            <aop:after-returning method="afterReturningAdvice" returning="retVal" pointcut-ref="selectAll" />
+            <aop:after-throwing method="afterThrowingAdvice" throwing="ex" pointcut-ref="selectAll" />
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="logging" class="com.tutorialspoint.Logging"/>
+
+    <bean id="annotationBasedLogging" class="com.tutorialspoint.AnnotationBasedLogging" />
+
+    <bean id="helloWorld" class="com.tutorialspoint.HelloWorld" scope="singleton">
+        <property name="message1" value="Hello World!" />
+        <property name="message2" value="Again Hello World!" />
+    </bean>
+
+    <bean id="helloIndia" class="com.tutorialspoint.HelloIndia" parent="helloWorld">
+        <property name="message1" value="Hello India!"/>
+        <property name="message3" value="Namaste India!"/>
+    </bean>
+
+    <bean class="com.tutorialspoint.InitHelloWorld" />
+
+    <bean id="textEditor" class="com.tutorialspoint.TextEditor">
+        <property name="name" value="Generic Text Editor" />
+    </bean>
+    <bean id="spellChecker" class="com.tutorialspoint.SpellChecker" />
+
+    <bean id="javaCollection" class="com.tutorialspoint.JavaCollection">
+        <property name="addressList">
+            <list>
+                <value>INDIA</value>
+                <value>Pakistan</value>
+                <value>USA</value>
+                <value>USA</value>
+            </list>
+        </property>
+
+        <property name="addressSet">
+            <list>
+                <value>INDIA</value>
+                <value>Pakistan</value>
+                <value>USA</value>
+                <value>USA</value>
+            </list>
+        </property>
+
+        <property name="addressMap">
+            <map>
+                <entry key="1" value="INDIA"/>
+                <entry key="2" value="Pakistan"/>
+                <entry key="3" value="USA"/>
+                <entry key="4" value="USA"/>
+            </map>
+        </property>
+
+        <property name="addressProp">
+            <props>
+                <prop key="one">INDIA</prop>
+                <prop key="two">Pakistan</prop>
+                <prop key="three">USA</prop>
+                <prop key="four">USA</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="student" class="com.tutorialspoint.Student">
+        <property name="name" value="Zara" />
+        <property name="age"  value="11"/>
+    </bean>
+
+    <bean id="profile" class="com.tutorialspoint.Profile">
+    </bean>
+
+    <bean id="student1" class="com.tutorialspoint.Student">
+        <property name="name" value="Zara" />
+        <property name="age"  value="11"/>
+    </bean>
+
+    <bean id="student2" class="com.tutorialspoint.Student">
+        <property name="name" value="Nuha" />
+        <property name="age"  value="12"/>
+    </bean>
+
+    <bean id="cStartEventHandler"
+          class="com.tutorialspoint.CStartEventHandler"/>
+
+    <bean id="cStopEventHandler"
+          class="com.tutorialspoint.CStopEventHandler"/>
+
+    <bean id="customEventHandler"
+          class="com.tutorialspoint.CustomEventHandler"/>
+
+    <bean id="customEventPublisher"
+          class="com.tutorialspoint.CustomEventPublisher"/>
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+        <property name="url" value="jdbc:hsqldb:hsql://localhost"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean id="studentJDBCTemplate"
+          class="com.tutorialspoint.StudentJDBCTemplate">
+        <property name="dataSource"  ref="dataSource" />
+    </bean>
+
+    <bean id="studentJDBCTemplate2"
+          class="com.tutorialspoint.StudentJDBCTemplate2">
+        <property name="dataSource"  ref="dataSource" />
+    </bean>
+
+
+</beans>
